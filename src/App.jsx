@@ -36,6 +36,25 @@ function App() {
   const [listaPost, setListaPost] = useState(posts)
   const [formData, setFormData] = useState(initialFormData)
 
+  function updateForm(event) {
+    const key = event.target.name;
+    const newPost = {
+      ...formData,
+      [key]: event.target.value
+    };
+    setFormData(newPost);
+  }
+
+  function addNewPost(event) {
+    event.preventDefault();
+    setListaPost((current) => [...current, formData]);
+    setFormData({
+      author: "",
+      title: "",
+      body: "",
+      public: false,
+    });
+  }
 
 
   return (
@@ -80,24 +99,39 @@ function App() {
         <div className="container mt-4">
           <div className="row">
             <div className="col-12 mb-3">
-              <form className='row'>
+              <form
+                className='row'
+                onSubmit={addNewPost}
+              >
 
-                <label htmlFor="name" className="form-label">NOME</label>
+                <label htmlFor="author" className="form-label">NOME</label>
                 <input
                   type="text"
-                  id="name"
+                  id="author"
+                  name='author'
                   className="form-control"
-                  value={formData.name}
-                // onChange={}
+                  value={formData.author}
+                  onChange={updateForm}
                 ></input>
 
                 <label htmlFor="title" className="form-label">TITOLO</label>
                 <input
                   type="text"
                   id="title"
+                  name='title'
                   className="form-control"
                   value={formData.title}
-                // onChange={}
+                  onChange={updateForm}
+                ></input>
+
+                <label htmlFor="body" className="form-label">TESTO</label>
+                <input
+                  type="text"
+                  id="body"
+                  name='body'
+                  className="form-control"
+                  value={formData.body}
+                  onChange={updateForm}
                 ></input>
 
                 <button type="submit" className="btn btn-primary mt-2">
