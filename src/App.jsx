@@ -38,9 +38,15 @@ function App() {
 
   function updateForm(event) {
     const key = event.target.name;
+    let value = event.target.value;
+
+    if (key === "public") {
+      value = value === "true"
+    }
+
     const newPost = {
       ...formData,
-      [key]: event.target.value
+      [key]: value
     };
     setFormData(newPost);
   }
@@ -133,6 +139,28 @@ function App() {
                   value={formData.body}
                   onChange={updateForm}
                 ></input>
+
+                <div>
+                  <input
+                    type="radio"
+                    name="public"
+                    id="bozza"
+                    value="false"
+                    checked={formData.public === false}
+                    onChange={updateForm}
+                  />
+                  <label htmlFor="bozza">Bozza</label>
+
+                  <input
+                    type="radio"
+                    name="public"
+                    id="pubblico"
+                    value="true"
+                    checked={formData.public === true}
+                    onChange={updateForm}
+                  />
+                  <label htmlFor="pubblico">Pubblico</label>
+                </div>
 
                 <button type="submit" className="btn btn-primary mt-2">
                   Aggiungi post
